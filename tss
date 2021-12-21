@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if [ -z "$MENU" ]
+then
+	MENU="dmenu"
+fi
+
+case $(echo "$MENU" | tr '[:upper:]' '[:lower:]') in
+*dmenu*)SELECT=$MENU" -c -l 10 ";;
+*)SELECT="$MENU";;
+esac
+
+mpc play $(mpc playlist | nl | sed 's/^[ \t]*//' | $SELECT | sed 's/	.*//')
